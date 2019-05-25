@@ -19,6 +19,6 @@
 	* 출처 : https://softwareengineering.stackexchange.com/questions/75919/should-package-names-be-singular-or-plural
 * \#2. 패키지 이름은 모두 소문자
 	* 패키지 이름은 모두 소문자로 구성
-	* 복수 개의 단어로 구성된 패키지는 `_`로 구분하거나 다 붙혀서 씀
-	* 출처 : https://stackoverflow.com/questions/49890803/naming-conventions-of-composed-package-names
+	* 복수 개의 단어로 구성된 패키지는 ~~_로 구분하거나~~ 다 붙혀서 씀 
+	* 출처 : https://google.github.io/styleguide/javaguide.html#s5.2.1-package-names
 	
