@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>me.donald</groupId>
-	<artifactId>lotto</artifactId>
+	<artifactId>checkin-feed</artifactId>
 	<version>0.0.1</version>
-	<name>lotto</name>
+	<name>checkin-feed</name>
 	<description>TDD sample project</description>
 
 	<properties>
