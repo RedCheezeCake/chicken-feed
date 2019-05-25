@@ -1,7 +1,7 @@
-package me.donald.chicken_feed.services;
+package me.donald.chickenfeed.services;
 
 import lombok.extern.slf4j.Slf4j;
-import me.donald.chicken_feed.entities.LottoNumber;
+import me.donald.chickenfeed.entities.LottoNumber;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;

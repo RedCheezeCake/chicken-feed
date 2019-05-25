@@ -1,4 +1,4 @@
-package me.donald.chicken_feed;
+package me.donald.chickenfeed;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

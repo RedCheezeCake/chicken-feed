@@ -1,7 +1,7 @@
-package me.donald.chicken_feed.service;
+package me.donald.chickenfeed.service;
 
-import me.donald.chicken_feed.entities.LottoNumber;
-import me.donald.chicken_feed.services.LottoService;
+import me.donald.chickenfeed.entities.LottoNumber;
+import me.donald.chickenfeed.services.LottoService;
 import org.assertj.core.util.Sets;
 import org.junit.Test;
 import org.junit.runner.RunWith;
