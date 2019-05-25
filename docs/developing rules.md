@@ -21,4 +21,13 @@
 	* 패키지 이름은 모두 소문자로 구성
 	* 복수 개의 단어로 구성된 패키지는 ~~_로 구분하거나~~ 다 붙혀서 씀 
 	* 출처 : https://google.github.io/styleguide/javaguide.html#s5.2.1-package-names
+* \#3. 클래스 네이밍
+	* 클래스 이름은 명사(구)로 지정 (ex. `Character`, `ImmutableList`)
+	* 가끔 형용사을 사용할 수 있음 (ex. `Readable`)
+	* 테스트 클래스는 대상 클래스에 `Test` 를 붙임 (ex. `Hash` -> `HashTest`) 
+	* 출처 : https://google.github.io/styleguide/javaguide.html#s5.2.2-class-names
+* \#4. 메소드 네이밍
+	* 메소드 이름은 동사(구)로 지정
+	* 테스트 메소드는 대상 메소드에 `_`와 로직적 상태를 붙임 `<methodUnderTest>_<state>` (ex. `pop_emptyStack`) 
+	* 출처 : https://google.github.io/styleguide/javaguide.html#s5.2.3-method-names
 	
