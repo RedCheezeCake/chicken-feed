@@ -1,4 +1,4 @@
-package me.donald.chicken_feed;
+package me.donald.chickenfeed;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package me.donald.chicken_feed.entities;
+package me.donald.chickenfeed.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
