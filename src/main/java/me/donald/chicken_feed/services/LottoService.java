@@ -1,10 +1,12 @@
-package me.donald.lotto.service;
+package me.donald.chicken_feed.services;
 
 import lombok.extern.slf4j.Slf4j;
-import me.donald.lotto.entity.LottoNumber;
+import me.donald.chicken_feed.entities.LottoNumber;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 @Slf4j
 @Service

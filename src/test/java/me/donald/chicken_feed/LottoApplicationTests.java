@@ -1,4 +1,4 @@
-package me.donald.lotto;
+package me.donald.chicken_feed;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
