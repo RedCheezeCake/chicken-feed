@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Slf4j
 @Service
-public class LottoService {
+public class NumberService {
 
 	private final int LOTTO_NUMBER_RANGE = 45;
 	private final int LOTTO_NUMBER_COUNT = 6;
