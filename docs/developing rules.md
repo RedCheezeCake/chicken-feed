@@ -31,3 +31,28 @@
 	* 테스트 메소드는 대상 메소드에 `_`와 로직적 상태를 붙임 `<methodUnderTest>_<state>` (ex. `pop_emptyStack`) 
 	* 출처 : https://google.github.io/styleguide/javaguide.html#s5.2.3-method-names
 	
+### Design Rules
+* \#1. REST API 리소스 디자인
+	* Document resource 
+		* 객체 명이나 DB 레코드 명처럼 단일 컨셉
+		* 단수형으로 디자인
+		* 리소스의 타입은 응답 헤더에 `Content-Type`을 통해서 명시
+		* ex. `http://api.soccer.restapi.org/leagues/seattle/teams/trebuchet`, `Content-Type: application/xml`
+	* Collection resource 
+		* 서버가 관리(server-managed)하는 리소스의 디렉토리 
+		* 복수형으로 디자인
+		* 클라이언트가 컬렉션에 새로운 리소스를 추가하려고해도, 실제 추가 여부는 컬렉션에 달려있음
+		* ex. `http://api.soccer.restapi.org/leagues/seattle/teams` 
+	* Store resource 는 클라이언트가 관리(client-managed)하는 리소스 저장소
+		* 클라이언트가 삽입, 수정, 삭제하는 리소스
+		* Store 의 URL 는 생성되지 않지만, 각 Stored Resource 에 해당하는 URL 이 있음
+		* 복수형으로 디자인 
+		* ex. `PUT /users/1234/favorites/alonso` (`favorites` : Store, `alonso` : resource)
+	* Controller resource
+		* 파라미터 값으로 실행 가능한 함수 역할을 하여 값을 반환하는 리소스 (input, output)
+		* URL 의 마지막에 동사로 디자인
+		* ex. `POST /alerts/245743/resend` 
+	* 출처 : 
+		* https://stackoverflow.com/questions/27121749/confusion-between-noun-vs-verb-in-rest-urls/27122233#27122233
+		* https://spoqa.github.io/2013/06/11/more-restful-interface.html
+		

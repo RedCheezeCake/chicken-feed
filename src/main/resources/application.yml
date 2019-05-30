@@ -6,7 +6,7 @@ spring:
     hibernate:
       ddl-auto: validate
   datasource:
-    url: jdbc:mariadb://localhost:3396/lottos
+    url: jdbc:mariadb://localhost:3396/chickenfeed
     username: root
     password: password
   flyway:
