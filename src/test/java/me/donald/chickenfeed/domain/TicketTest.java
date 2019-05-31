@@ -1,6 +1,8 @@
 package me.donald.chickenfeed.domain;
 
 import me.donald.chickenfeed.domain.ticket.Ball;
+import me.donald.chickenfeed.domain.ticket.Rank;
+import me.donald.chickenfeed.domain.ticket.RankType;
 import me.donald.chickenfeed.domain.ticket.Ticket;
 import org.junit.Test;
 
@@ -149,7 +151,40 @@ public class TicketTest {
 	 * 해당 티켓이 당첨 등수를 확인
 	 */
 	@Test
-	public void confirmWinningResult() {
+	public void confirmWinning_third() {
+		// given
+		Ticket ticket = new Ticket(0, new int[]{1,2,3,4,5,6});
+
+		// when
+		Rank rank = ticket.confirmWinning(new int[]{1, 2, 3, 4, 5, 8}, 10);
+
+		// then
+		assertThat(rank.getRanking()).isEqualTo(RankType.THIRD);
+	}
+
+	@Test
+	public void confirmWinning_second() {
+		// given
+		Ticket ticket = new Ticket(0, new int[]{1,2,3,4,5,6});
+
+		// when
+		Rank rank = ticket.confirmWinning(new int[]{1, 2, 3, 4, 5, 8}, 6);
+
+		// then
+		assertThat(rank.getRanking()).isEqualTo(RankType.SECOND);
 
 	}
+
+	@Test
+	public void confirmWinning_lostWithTwoHits() {
+		// given
+		Ticket ticket = new Ticket(0, new int[]{1,2,3,4,5,6});
+
+		// when
+		Rank rank = ticket.confirmWinning(new int[]{1, 2, 7, 8, 9, 10}, 6);
+
+		// then
+		assertThat(rank.getRanking()).isEqualTo(RankType.LOST);
+	}
+
 }
