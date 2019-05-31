@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @Entity
 public class Ticket {
@@ -32,6 +34,10 @@ public class Ticket {
 	@CollectionTable(name = "ball",
 			joinColumns = @JoinColumn(name = "ticket_no"))
 	private List<Ball> balls;
+
+	public List<Ball> getBalls() {
+		return balls;
+	}
 
 	public Ticket(int[] requestBalls) {
 		this.balls = new ArrayList<>();
@@ -84,5 +90,48 @@ public class Ticket {
 		}
 
 		return true;
+	}
+
+	public void issueTicket() {
+		int beforeNumber = 0;
+		int beforeIdx = -1;
+
+		for (int idx = 0; idx < 6; idx++) {
+			int number = this.balls.get(idx).getNumber();
+
+			if (number == 0)
+				continue;
+
+			List<Ball> generatedBalls = generateRandomBalls(beforeNumber, number, idx - beforeIdx - 1);
+			fillRandomBalls(generatedBalls, beforeIdx + 1);
+
+			beforeNumber = number;
+			beforeIdx = idx;
+		}
+
+		// 오른쪽 빈 부분
+		List<Ball> lastRandomBalls = generateRandomBalls(beforeNumber, 45, 5 - beforeIdx);
+		fillRandomBalls(lastRandomBalls, beforeIdx + 1);
+
+		this.issueTime = LocalDateTime.now();
+	}
+
+	private List<Ball> generateRandomBalls(int beforeNumber, int number, int size) {
+		List<Integer> randomNumberList = new ArrayList<>();
+		Random random = new Random();
+
+		for (int i = 0; i < size; i++)
+			randomNumberList.add(random.nextInt(number - beforeNumber) + beforeNumber);
+
+		randomNumberList.sort(Integer::compareTo);
+
+		return randomNumberList.stream().map(Ball::new).collect(Collectors.toList());
+	}
+
+	private void fillRandomBalls(List<Ball> generatedBalls, int beginIdx) {
+		for (Ball ball : generatedBalls) {
+			this.balls.set(beginIdx, ball);
+			beginIdx++;
+		}
 	}
 }
