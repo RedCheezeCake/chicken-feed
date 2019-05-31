@@ -2,9 +2,7 @@ package me.donald.chickenfeed.domain.ticket;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -19,15 +17,14 @@ public class Ticket {
 	@Column(name = "round")
 	private int round;
 
-	@Column(name = "rank")
-	private int rank;
+	@Embedded
+	private Rank rank;
 
 	@Column(name = "ticket_type")
 	@Enumerated(EnumType.STRING)
 	private TicketType type;
 
 	@Column(name = "issue_time")
-	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime issueTime;
 
 	@ElementCollection
@@ -135,5 +132,21 @@ public class Ticket {
 			this.balls.set(beginIdx, ball);
 			beginIdx++;
 		}
+	}
+
+	public Rank confirmWinning(int[] winNumbers, int bonusNumber) {
+		int hit = 0;
+
+		Set<Integer> ticketNumberSet = this.balls.stream().map(Ball::getNumber).collect(Collectors.toSet());
+		for (int number : winNumbers) {
+			if (ticketNumberSet.contains(number))
+				hit++;
+		}
+		Rank rank = new Rank(hit);
+
+		if (rank.getRanking() == RankType.THIRD && ticketNumberSet.contains(bonusNumber))
+			rank.bonusHit();
+
+		return rank;
 	}
 }
