@@ -1,5 +1,6 @@
 package me.donald.chickenfeed.domain;
 
+import me.donald.chickenfeed.domain.ticket.Ball;
 import me.donald.chickenfeed.domain.ticket.Ticket;
 import org.junit.Test;
 
@@ -105,8 +106,43 @@ public class TicketTest {
 	 *	티켓을 발행함
 	 */
 	@Test
-	public void issueTicket() {
+	public void issueTicket_ticketTypeAuto() {
+		// given
+		int[] requestBalls = new int[]{0,0,0,0,0,0};
+		Ticket ticket = new Ticket(requestBalls);
 
+		// when
+		ticket.issueTicket();
+
+		// then
+		boolean isBlank = false;
+		for (Ball ball : ticket.getBalls()) {
+			if (ball.getNumber() == 0) {
+				isBlank = true;
+				break;
+			}
+		}
+		assertThat(isBlank).isFalse();
+	}
+
+	@Test
+	public void issueTicket_ticketTypeManual() {
+		// given
+		int[] requestBalls = new int[]{0,24,0,0,32,0};
+		Ticket ticket = new Ticket(requestBalls);
+
+		// when
+		ticket.issueTicket();
+
+		// then
+		boolean isBlank = false;
+		for (Ball ball : ticket.getBalls()) {
+			if (ball.getNumber() == 0) {
+				isBlank = true;
+				break;
+			}
+		}
+		assertThat(isBlank).isFalse();
 	}
 
 	/**
