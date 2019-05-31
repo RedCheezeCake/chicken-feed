@@ -15,7 +15,7 @@ public class TicketTest {
 	public void checkIssuable_emptyRequest() {
 		// given
 		int[] requestBalls = new int[]{0,0,0,0,0,0};
-		Ticket ticket = new Ticket(requestBalls);
+		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
 		boolean issuable = ticket.checkIssuable();
@@ -28,7 +28,7 @@ public class TicketTest {
 	public void checkIssuable_justOneBallRequest() {
 		// given
 		int[] requestBalls = new int[]{0,0,3,0,0,0};
-		Ticket ticket = new Ticket(requestBalls);
+		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
 		boolean issuable = ticket.checkIssuable();
@@ -41,7 +41,7 @@ public class TicketTest {
 	public void checkIssuable_moreThanOneBallsRequest() {
 		// given
 		int[] requestBalls = new int[]{0,24,0,0,32,0};
-		Ticket ticket = new Ticket(requestBalls);
+		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
 		boolean issuable = ticket.checkIssuable();
@@ -54,7 +54,7 @@ public class TicketTest {
 	public void checkIssuable_failedByNotOrdered() {
 		// given
 		int[] requestBalls = new int[]{0,12,0,8,0,0};
-		Ticket ticket = new Ticket(requestBalls);
+		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
 		boolean issuable = ticket.checkIssuable();
@@ -67,7 +67,7 @@ public class TicketTest {
 	public void checkIssuable_failedByOneBallLeftSide() {
 		// given
 		int[] requestBalls = new int[]{0,1,0,0,0,0};
-		Ticket ticket = new Ticket(requestBalls);
+		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
 		boolean issuable = ticket.checkIssuable();
@@ -80,7 +80,7 @@ public class TicketTest {
 	public void checkIssuable_failedByOneBallRightSide() {
 		// given
 		int[] requestBalls = new int[]{0,0,0,0,45,0};
-		Ticket ticket = new Ticket(requestBalls);
+		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
 		boolean issuable = ticket.checkIssuable();
@@ -93,7 +93,7 @@ public class TicketTest {
 	public void checkIssuable_failedByOneMoreBalls() {
 		// given
 		int[] requestBalls = new int[]{0,12,0,13,0,0};
-		Ticket ticket = new Ticket(requestBalls);
+		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
 		boolean issuable = ticket.checkIssuable();
@@ -109,7 +109,7 @@ public class TicketTest {
 	public void issueTicket_ticketTypeAuto() {
 		// given
 		int[] requestBalls = new int[]{0,0,0,0,0,0};
-		Ticket ticket = new Ticket(requestBalls);
+		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
 		ticket.issueTicket();
@@ -129,7 +129,7 @@ public class TicketTest {
 	public void issueTicket_ticketTypeManual() {
 		// given
 		int[] requestBalls = new int[]{0,24,0,0,32,0};
-		Ticket ticket = new Ticket(requestBalls);
+		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
 		ticket.issueTicket();

@@ -39,7 +39,9 @@ public class Ticket {
 		return balls;
 	}
 
-	public Ticket(int[] requestBalls) {
+	public Ticket(int round, int[] requestBalls) {
+		this.round = round;
+
 		this.balls = new ArrayList<>();
 		this.type = TicketType.AUTO;
 
