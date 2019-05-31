@@ -10,4 +10,4 @@ spring:
     username: root
     password: password
   flyway:
-    enabled: true
+    enabled: false
