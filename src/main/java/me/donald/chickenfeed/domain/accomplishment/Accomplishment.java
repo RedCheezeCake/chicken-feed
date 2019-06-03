@@ -7,6 +7,8 @@ import java.util.List;
 @Entity
 public class Accomplishment {
 
+	private static final int RANK_SIZE = 6;
+
 	@Id
 	@Column(name = "round")
 	private int round;
@@ -21,7 +23,7 @@ public class Accomplishment {
 		this.round = round;
 		this.hits = new ArrayList<>();
 
-		for (int rank = 0; rank < 6; rank++)
+		for (int rank = 0; rank < RANK_SIZE; rank++)
 			this.hits.add(new RankHit(0));
 	}
 
@@ -40,6 +42,9 @@ public class Accomplishment {
 	 * @param hit  적중 횟수
 	 */
 	public void addRankHit(int rank, int hit) {
+		if (rank > RANK_SIZE || rank < 0)
+			throw new IllegalArgumentException("범위를 벗어난 순위입니다.");
+
 		RankHit rankHit = this.hits.get(rank - 1);
 		int beforeHit = rankHit.getHit();
 		this.hits.set(rank - 1, new RankHit(beforeHit + hit));
