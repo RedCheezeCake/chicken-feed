@@ -38,7 +38,6 @@ public class Ticket {
 
 	public Ticket(int round, int[] requestBalls) {
 		this.round = round;
-
 		this.balls = new ArrayList<>();
 		this.type = TicketType.AUTO;
 
@@ -50,6 +49,11 @@ public class Ticket {
 		}
 	}
 
+	/**
+	 * 티켓 발행 가능 여부 반환
+	 *
+	 * @return 발행 가능 여부
+	 */
 	public boolean checkIssuable() {
 		if (this.type.equals(TicketType.AUTO))
 			return true;
@@ -57,6 +61,11 @@ public class Ticket {
 		return checkSuitableBlank() && checkACSSorted();
 	}
 
+	/**
+	 * 요청이 없는 공란에 랜덤 값을 생성할 수 있는 지 검증
+	 *
+	 * @return 생성 가능 여부
+	 */
 	private boolean checkSuitableBlank() {
 		int beforeNumber = 0;
 		int beforeIdx = -1;
@@ -76,6 +85,11 @@ public class Ticket {
 		return 45 - beforeNumber >= 5 - beforeIdx;
 	}
 
+	/**
+	 * 오름차순 정렬 검증
+	 *
+	 * @return 오름차순 정렬 여부
+	 */
 	private boolean checkACSSorted() {
 		int beforeNumber = 0;
 		for (Ball ball : this.balls) {
@@ -91,6 +105,9 @@ public class Ticket {
 		return true;
 	}
 
+	/**
+	 * 요청에 맞게 랜덤한 번호를 생성하여 티켓 발행
+	 */
 	public void issueTicket() {
 		int beforeNumber = 0;
 		int beforeIdx = -1;
@@ -115,6 +132,14 @@ public class Ticket {
 		this.issueTime = LocalDateTime.now();
 	}
 
+	/**
+	 * 시작 번호부터 끝 번호 사이에 존재하는 랜덤한 번호를 크기에 맞게 생성
+	 *
+	 * @param beforeNumber 시작 번호
+	 * @param number       끝 번호
+	 * @param size         생성 크기
+	 * @return 랜덤 생성된 볼 리스트
+	 */
 	private List<Ball> generateRandomBalls(int beforeNumber, int number, int size) {
 		List<Integer> randomNumberList = new ArrayList<>();
 		Random random = new Random();
@@ -127,6 +152,12 @@ public class Ticket {
 		return randomNumberList.stream().map(Ball::new).collect(Collectors.toList());
 	}
 
+	/**
+	 * 생성된 볼 리스트를 티켓 볼 리스트의 특정 부분부터 삽입
+	 *
+	 * @param generatedBalls 생성된 볼 리스트
+	 * @param beginIdx       시작 부분
+	 */
 	private void fillRandomBalls(List<Ball> generatedBalls, int beginIdx) {
 		for (Ball ball : generatedBalls) {
 			this.balls.set(beginIdx, ball);
@@ -134,6 +165,13 @@ public class Ticket {
 		}
 	}
 
+	/**
+	 * 티켓의 당첨 여부 판단
+	 *
+	 * @param winNumbers  당첨 번호
+	 * @param bonusNumber 보너스 당첨 번호
+	 * @return 당첨 순위
+	 */
 	public Rank confirmWinning(int[] winNumbers, int bonusNumber) {
 		int hit = 0;
 
