@@ -1,4 +1,4 @@
-package me.donald.chickenfeed.domain;
+package me.donald.chickenfeed.domain.ticket;
 
 import me.donald.chickenfeed.domain.ticket.Ball;
 import me.donald.chickenfeed.domain.ticket.Rank;
