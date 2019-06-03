@@ -32,9 +32,7 @@ public class Ticket {
 			joinColumns = @JoinColumn(name = "ticket_no"))
 	private List<Ball> balls;
 
-	public List<Ball> getBalls() {
-		return balls;
-	}
+	protected Ticket() {}
 
 	public Ticket(int round, int[] requestBalls) {
 		this.round = round;
@@ -47,6 +45,10 @@ public class Ticket {
 
 			this.balls.add(new Ball(number));
 		}
+	}
+
+	public List<Ball> getBalls() {
+		return balls;
 	}
 
 	/**

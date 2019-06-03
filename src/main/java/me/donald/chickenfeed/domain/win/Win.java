@@ -33,6 +33,8 @@ public class Win {
 	@OrderColumn(name = "rank")
 	private List<Long> prizes;
 
+	protected Win() {}
+
 	public Win(int round, List<Integer> numbers, long totalPrize) {
 		if (numbers.size() != WIN_NUMBER_SIZE_WITH_BONUS)
 			throw new IllegalArgumentException("입력 값의 크기가 잘못되었습니다.");

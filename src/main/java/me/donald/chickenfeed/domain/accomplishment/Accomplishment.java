@@ -19,6 +19,8 @@ public class Accomplishment {
 	@OrderColumn(name = "rank")
 	private List<RankHit> hits;
 
+	protected Accomplishment() {}
+
 	public Accomplishment(int round) {
 		this.round = round;
 		this.hits = new ArrayList<>();

@@ -9,6 +9,8 @@ class RankHit {
 	@Column(name = "hit")
 	private int hit;
 
+	protected RankHit() {}
+
 	RankHit(int hit) {
 		this.hit = hit;
 	}

@@ -15,6 +15,8 @@ public class Ball {
 	@Column(name = "manual")
 	private boolean manual;
 
+	protected Ball() {}
+
 	Ball(int number) {
 		this.number = number;
 
