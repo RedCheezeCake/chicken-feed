@@ -56,7 +56,7 @@ public class AccomplishmentTest {
 		Accomplishment accomp = new Accomplishment(0);
 
 		// when
-		accomp.addRankHit(-1, 1);
+		accomp.addRankHit(0, 1);
 
 		// then
 	}
