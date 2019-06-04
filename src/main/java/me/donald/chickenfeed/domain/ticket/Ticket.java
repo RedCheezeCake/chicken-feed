@@ -189,4 +189,8 @@ public class Ticket {
 
 		return rank;
 	}
+
+	public Integer[] getTicketNumbers() {
+		return this.balls.stream().map(Ball::getNumber).toArray(Integer[]::new);
+	}
 }
