@@ -34,7 +34,7 @@ public class Ticket {
 
 	protected Ticket() {}
 
-	public Ticket(int round, int[] requestBalls) {
+	public Ticket(int round, Integer[] requestBalls) {
 		this.round = round;
 		this.balls = new ArrayList<>();
 		this.type = TicketType.AUTO;
