@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
@@ -23,10 +25,10 @@ public class TicketTest {
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
-		boolean issuable = ticket.checkIssuable();
+		ticket.issueTicket();
 
 		// then
-		assertThat(issuable).isTrue();
+		assertThat(ticket.getIssueTime()).isEqualToIgnoringMinutes(LocalDateTime.now());
 	}
 
 	@Test
@@ -36,10 +38,10 @@ public class TicketTest {
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
-		boolean issuable = ticket.checkIssuable();
+		ticket.issueTicket();
 
 		// then
-		assertThat(issuable).isTrue();
+		assertThat(ticket.getIssueTime()).isEqualToIgnoringMinutes(LocalDateTime.now());
 	}
 
 	@Test
@@ -49,62 +51,50 @@ public class TicketTest {
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
-		boolean issuable = ticket.checkIssuable();
+		ticket.issueTicket();
 
 		// then
-		assertThat(issuable).isTrue();
+		assertThat(ticket.getIssueTime()).isEqualToIgnoringMinutes(LocalDateTime.now());
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void checkIssuable_failedByNotOrdered() {
 		// given
 		Integer[] requestBalls = new Integer[]{0,12,0,8,0,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
-		boolean issuable = ticket.checkIssuable();
-
-		// then
-		assertThat(issuable).isFalse();
+		ticket.issueTicket();
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void checkIssuable_failedByOneBallLeftSide() {
 		// given
 		Integer[] requestBalls = new Integer[]{0,1,0,0,0,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
-		boolean issuable = ticket.checkIssuable();
-
-		// then
-		assertThat(issuable).isFalse();
+		ticket.issueTicket();
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void checkIssuable_failedByOneBallRightSide() {
 		// given
 		Integer[] requestBalls = new Integer[]{0,0,0,0,45,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
-		boolean issuable = ticket.checkIssuable();
-
-		// then
-		assertThat(issuable).isFalse();
+		ticket.issueTicket();
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void checkIssuable_failedByOneMoreBalls() {
 		// given
 		Integer[] requestBalls = new Integer[]{0,12,0,13,0,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
-		boolean issuable = ticket.checkIssuable();
-
-		// then
-		assertThat(issuable).isFalse();
+		ticket.issueTicket();
 	}
 
 	/**

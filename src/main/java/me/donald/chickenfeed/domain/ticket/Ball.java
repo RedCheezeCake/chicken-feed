@@ -17,11 +17,9 @@ public class Ball {
 
 	protected Ball() {}
 
-	Ball(int number) {
+	Ball(int number, boolean isManual) {
 		this.number = number;
-
-		if (number != 0)
-			manual = true;
+		this.manual = isManual;
 	}
 
 	@Override

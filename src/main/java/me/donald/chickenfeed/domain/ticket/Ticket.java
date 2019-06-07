@@ -1,10 +1,19 @@
 package me.donald.chickenfeed.domain.ticket;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
+@Getter
+@EqualsAndHashCode
+@ToString
 @Entity
 public class Ticket {
 
@@ -43,7 +52,7 @@ public class Ticket {
 			if (number != 0)
 				this.type = TicketType.MANUAL;
 
-			this.balls.add(new Ball(number));
+			this.balls.add(new Ball(number, true));
 		}
 	}
 
@@ -56,7 +65,7 @@ public class Ticket {
 	 *
 	 * @return 발행 가능 여부
 	 */
-	public boolean checkIssuable() {
+	private boolean checkIssuable() {
 		if (this.type.equals(TicketType.AUTO))
 			return true;
 
@@ -111,7 +120,10 @@ public class Ticket {
 	 * 요청에 맞게 랜덤한 번호를 생성하여 티켓 발행
 	 */
 	public void issueTicket() {
-		int beforeNumber = 0;
+		if (!checkIssuable())
+			throw new IllegalArgumentException("티켓을 발급할 수 없습니다.");
+
+		int beforeNumber = 1;
 		int beforeIdx = -1;
 
 		for (int idx = 0; idx < 6; idx++) {
@@ -132,6 +144,7 @@ public class Ticket {
 		fillRandomBalls(lastRandomBalls, beforeIdx + 1);
 
 		this.issueTime = LocalDateTime.now();
+		log.info("Ticket issued // round : '{}', numbers : '{}'", this.round, Arrays.toString(getTicketNumbers()));
 	}
 
 	/**
@@ -146,12 +159,18 @@ public class Ticket {
 		List<Integer> randomNumberList = new ArrayList<>();
 		Random random = new Random();
 
-		for (int i = 0; i < size; i++)
-			randomNumberList.add(random.nextInt(number - beforeNumber) + beforeNumber);
+		int idx = 0;
+		while (idx < size) {
+			int newNumber = random.nextInt(number - beforeNumber) + beforeNumber + 1;
+			if (randomNumberList.contains(newNumber))
+				continue;
+			randomNumberList.add(newNumber);
+			idx++;
+		}
 
 		randomNumberList.sort(Integer::compareTo);
 
-		return randomNumberList.stream().map(Ball::new).collect(Collectors.toList());
+		return randomNumberList.stream().map(i -> new Ball(i, false)).collect(Collectors.toList());
 	}
 
 	/**
