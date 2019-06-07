@@ -1,9 +1,5 @@
 package me.donald.chickenfeed.domain.ticket;
 
-import me.donald.chickenfeed.domain.ticket.Ball;
-import me.donald.chickenfeed.domain.ticket.Rank;
-import me.donald.chickenfeed.domain.ticket.RankType;
-import me.donald.chickenfeed.domain.ticket.Ticket;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +19,7 @@ public class TicketTest {
 	@Test
 	public void checkIssuable_emptyRequest() {
 		// given
-		int[] requestBalls = new int[]{0,0,0,0,0,0};
+		Integer[] requestBalls = new Integer[]{0,0,0,0,0,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
@@ -36,7 +32,7 @@ public class TicketTest {
 	@Test
 	public void checkIssuable_justOneBallRequest() {
 		// given
-		int[] requestBalls = new int[]{0,0,3,0,0,0};
+		Integer[] requestBalls = new Integer[]{0,0,3,0,0,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
@@ -49,7 +45,7 @@ public class TicketTest {
 	@Test
 	public void checkIssuable_moreThanOneBallsRequest() {
 		// given
-		int[] requestBalls = new int[]{0,24,0,0,32,0};
+		Integer[] requestBalls = new Integer[]{0,24,0,0,32,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
@@ -62,7 +58,7 @@ public class TicketTest {
 	@Test
 	public void checkIssuable_failedByNotOrdered() {
 		// given
-		int[] requestBalls = new int[]{0,12,0,8,0,0};
+		Integer[] requestBalls = new Integer[]{0,12,0,8,0,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
@@ -75,7 +71,7 @@ public class TicketTest {
 	@Test
 	public void checkIssuable_failedByOneBallLeftSide() {
 		// given
-		int[] requestBalls = new int[]{0,1,0,0,0,0};
+		Integer[] requestBalls = new Integer[]{0,1,0,0,0,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
@@ -88,7 +84,7 @@ public class TicketTest {
 	@Test
 	public void checkIssuable_failedByOneBallRightSide() {
 		// given
-		int[] requestBalls = new int[]{0,0,0,0,45,0};
+		Integer[] requestBalls = new Integer[]{0,0,0,0,45,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
@@ -101,7 +97,7 @@ public class TicketTest {
 	@Test
 	public void checkIssuable_failedByOneMoreBalls() {
 		// given
-		int[] requestBalls = new int[]{0,12,0,13,0,0};
+		Integer[] requestBalls = new Integer[]{0,12,0,13,0,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
@@ -117,7 +113,7 @@ public class TicketTest {
 	@Test
 	public void issueTicket_ticketTypeAuto() {
 		// given
-		int[] requestBalls = new int[]{0,0,0,0,0,0};
+		Integer[] requestBalls = new Integer[]{0,0,0,0,0,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
@@ -137,7 +133,7 @@ public class TicketTest {
 	@Test
 	public void issueTicket_ticketTypeManual() {
 		// given
-		int[] requestBalls = new int[]{0,24,0,0,32,0};
+		Integer[] requestBalls = new Integer[]{0,24,0,0,32,0};
 		Ticket ticket = new Ticket(0, requestBalls);
 
 		// when
@@ -160,7 +156,7 @@ public class TicketTest {
 	@Test
 	public void confirmWinning_third() {
 		// given
-		Ticket ticket = new Ticket(0, new int[]{1,2,3,4,5,6});
+		Ticket ticket = new Ticket(0, new Integer[]{1,2,3,4,5,6});
 
 		// when
 		Rank rank = ticket.confirmWinning(new int[]{1, 2, 3, 4, 5, 8}, 10);
@@ -172,7 +168,7 @@ public class TicketTest {
 	@Test
 	public void confirmWinning_second() {
 		// given
-		Ticket ticket = new Ticket(0, new int[]{1,2,3,4,5,6});
+		Ticket ticket = new Ticket(0, new Integer[]{1,2,3,4,5,6});
 
 		// when
 		Rank rank = ticket.confirmWinning(new int[]{1, 2, 3, 4, 5, 8}, 6);
@@ -185,7 +181,7 @@ public class TicketTest {
 	@Test
 	public void confirmWinning_lostWithTwoHits() {
 		// given
-		Ticket ticket = new Ticket(0, new int[]{1,2,3,4,5,6});
+		Ticket ticket = new Ticket(0, new Integer[]{1,2,3,4,5,6});
 
 		// when
 		Rank rank = ticket.confirmWinning(new int[]{1, 2, 7, 8, 9, 10}, 6);
