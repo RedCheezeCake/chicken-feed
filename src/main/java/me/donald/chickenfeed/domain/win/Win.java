@@ -1,6 +1,9 @@
 package me.donald.chickenfeed.domain.win;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,9 @@ public class Win {
 	@Column(name = "bonus_number")
 	private int bonusNumber;
 
+	@Column(name = "draw_date")
+	private LocalDate drawDate;
+
 	@ElementCollection
 	@CollectionTable(name = "prizes",
 			joinColumns = @JoinColumn(name = "round"))
@@ -36,9 +42,19 @@ public class Win {
 	protected Win() {
 	}
 
+	/**
+	 * 스케줄러를 통해 매주 일요일에 생성 예정
+	 *
+	 * @param round 다음 회차 번호
+	 */
 	public Win(int round) {
 		this.round = round;
+		this.drawDate = findNextDrawDate();
 		this.totalPrize = 0;
+	}
+
+	private LocalDate findNextDrawDate() {
+		return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
 	}
 
 	/**
@@ -97,4 +113,7 @@ public class Win {
 			return this.prizes.get(rank - 1);
 	}
 
+	public int getRound() {
+		return this.round;
+	}
 }
