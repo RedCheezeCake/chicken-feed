@@ -63,7 +63,7 @@ public class Ticket {
 	 *
 	 * @return 발행 가능 여부
 	 */
-	public boolean checkIssuable() {
+	private boolean checkIssuable() {
 		if (this.type.equals(TicketType.AUTO))
 			return true;
 
@@ -118,6 +118,9 @@ public class Ticket {
 	 * 요청에 맞게 랜덤한 번호를 생성하여 티켓 발행
 	 */
 	public void issueTicket() {
+		if (!checkIssuable())
+			throw new IllegalArgumentException("티켓을 발급할 수 없습니다.");
+
 		int beforeNumber = 1;
 		int beforeIdx = -1;
 

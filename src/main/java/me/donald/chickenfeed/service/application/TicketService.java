@@ -28,10 +28,6 @@ public class TicketService {
 		int lastRound = roundService.getLastRound();
 		Ticket ticket = new Ticket(lastRound, numbers);
 
-		boolean issuable = ticket.checkIssuable();
-		if (!issuable)
-			throw new IllegalArgumentException("티켓을 발급할 수 없습니다.");
-
 		ticket.issueTicket();
 		ticketRepository.save(ticket);
 
