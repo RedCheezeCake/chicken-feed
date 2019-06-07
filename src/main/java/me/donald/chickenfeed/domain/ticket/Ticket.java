@@ -1,10 +1,17 @@
 package me.donald.chickenfeed.domain.ticket;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Getter
+@EqualsAndHashCode
+@ToString
 @Entity
 public class Ticket {
 
