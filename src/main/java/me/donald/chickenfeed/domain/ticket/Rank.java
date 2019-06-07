@@ -2,11 +2,14 @@ package me.donald.chickenfeed.domain.ticket;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Embeddable
 public class Rank {
 
 	@Column(name = "ranking")
+	@Enumerated(EnumType.STRING)
 	private RankType ranking;
 
 	protected Rank() {}
