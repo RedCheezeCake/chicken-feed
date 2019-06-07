@@ -2,7 +2,7 @@ package me.donald.chickenfeed.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.donald.chickenfeed.model.Numbers;
-import me.donald.chickenfeed.service.TicketService;
+import me.donald.chickenfeed.service.application.TicketService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;

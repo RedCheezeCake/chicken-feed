@@ -1,4 +1,4 @@
-package me.donald.chickenfeed.service;
+package me.donald.chickenfeed.service.application;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
