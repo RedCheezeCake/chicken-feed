@@ -3,12 +3,14 @@ package me.donald.chickenfeed.domain.ticket;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Getter
 @EqualsAndHashCode
 @ToString
@@ -142,6 +144,7 @@ public class Ticket {
 		fillRandomBalls(lastRandomBalls, beforeIdx + 1);
 
 		this.issueTime = LocalDateTime.now();
+		log.info("Ticket issued // round : '{}', numbers : '{}'", this.round, Arrays.toString(getTicketNumbers()));
 	}
 
 	/**
@@ -156,8 +159,14 @@ public class Ticket {
 		List<Integer> randomNumberList = new ArrayList<>();
 		Random random = new Random();
 
-		for (int i = 0; i < size; i++)
-			randomNumberList.add(random.nextInt(number - beforeNumber) + beforeNumber);
+		int idx = 0;
+		while (idx < size) {
+			int newNumber = random.nextInt(number - beforeNumber) + beforeNumber + 1;
+			if (randomNumberList.contains(newNumber))
+				continue;
+			randomNumberList.add(newNumber);
+			idx++;
+		}
 
 		randomNumberList.sort(Integer::compareTo);
 
