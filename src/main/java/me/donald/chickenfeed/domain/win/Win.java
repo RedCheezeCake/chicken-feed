@@ -1,6 +1,9 @@
 package me.donald.chickenfeed.domain.win;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,26 +30,53 @@ public class Win {
 	@Column(name = "bonus_number")
 	private int bonusNumber;
 
+	@Column(name = "draw_date")
+	private LocalDate drawDate;
+
 	@ElementCollection
 	@CollectionTable(name = "prizes",
 			joinColumns = @JoinColumn(name = "round"))
 	@OrderColumn(name = "rank")
 	private List<Long> prizes;
 
-	protected Win() {}
+	protected Win() {
+	}
 
-	public Win(int round, List<Integer> numbers, long totalPrize) {
+	/**
+	 * 스케줄러를 통해 매주 일요일에 생성 예정
+	 *
+	 * @param round 다음 회차 번호
+	 */
+	public Win(int round) {
+		this.round = round;
+		this.drawDate = findNextDrawDate();
+		this.totalPrize = 0;
+	}
+
+	private LocalDate findNextDrawDate() {
+		return LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+	}
+
+	/**
+	 * 이번주 당첨금 추가 갱신
+	 *
+	 * @param prize 추가될 당첨금
+	 */
+	public void addTotalPrize(long prize) {
+		this.totalPrize += prize;
+	}
+
+	/**
+	 * 이번주 당첨 번호 입력
+	 *
+	 * @param numbers 이번주 당첨 번호
+	 */
+	public void setWinNumbers(List<Integer> numbers) {
 		if (numbers.size() != WIN_NUMBER_SIZE_WITH_BONUS)
 			throw new IllegalArgumentException("입력 값의 크기가 잘못되었습니다.");
 
-		this.round = round;
 		this.numbers = numbers.subList(0, WIN_NUMBER_SIZE).toArray(new Integer[0]);
 		this.bonusNumber = numbers.get(WIN_NUMBER_SIZE_WITH_BONUS - 1);
-		this.totalPrize = totalPrize;
-
-		this.prizes = new ArrayList<>();
-		this.prizes.add(FOURTH_RANK_PRIZE);
-		this.prizes.add(FIFTH_RANK_PRIZE);
 	}
 
 	/**
@@ -56,6 +86,9 @@ public class Win {
 		if (prizes.size() != PERCENTAGE_PRIZABLE_RANK_SIZE)
 			throw new IllegalArgumentException("범위를 벗어난 입력 값입니다.");
 
+		this.prizes = new ArrayList<>();
+		this.prizes.add(FOURTH_RANK_PRIZE);
+		this.prizes.add(FIFTH_RANK_PRIZE);
 		this.prizes.addAll(0, prizes);
 	}
 
@@ -69,7 +102,7 @@ public class Win {
 		if (rank > TOTAL_PRIZABLE_RANK_SIZE || rank < 1)
 			throw new IllegalArgumentException("범위를 벗어난 입력 값입니다.");
 
-		if (this.prizes.size() != TOTAL_PRIZABLE_RANK_SIZE)
+		if (this.prizes == null)
 			throw new IllegalStateException("아직 당첨금이 모두 입력되지 않았습니다.");
 
 		if (rank == 4)
@@ -80,4 +113,7 @@ public class Win {
 			return this.prizes.get(rank - 1);
 	}
 
+	public int getRound() {
+		return this.round;
+	}
 }

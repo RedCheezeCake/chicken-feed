@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,12 +16,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WinTest {
 
 	/**
+	 * 당첨 번호 입력
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void setWinNumbers_exceptionByRange() {
+		// given
+		Win win = new Win(0);
+
+		// when
+		win.setWinNumbers(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
+
+		// then
+	}
+
+	/**
 	 * 1, 2, 3 등에 해당하는 당첨금 입력
 	 */
 	@Test
 	public void setRankPrizes_normal() {
 		// given
-		Win win = new Win(0, Arrays.asList(1, 2, 3, 4, 5, 6, 7), 10000);
+		Win win = new Win(0);
 		List<Long> prizes = Arrays.asList(100L, 10L, 1L);
 
 		// when
@@ -39,7 +52,7 @@ public class WinTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void setRankPrizes_exceptionRange() {
 		// given
-		Win win = new Win(0, Arrays.asList(1, 2, 3, 4, 5, 6, 7), 10000);
+		Win win = new Win(0);
 		List<Long> prizes = Arrays.asList(100L, 10L, 1L, 0L);
 
 		// when
@@ -54,8 +67,9 @@ public class WinTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void getRankPrize_exceptionRange() {
 		// given
-		Win win = new Win(0, Arrays.asList(1, 2, 3, 4, 5, 6, 7), 10000);
+		Win win = new Win(0);
 		List<Long> prizes = Arrays.asList(100L, 10L, 1L);
+		win.setRankPrizes(prizes);
 
 		// when
 		win.getRankPrize(0);
@@ -66,7 +80,7 @@ public class WinTest {
 	@Test(expected = IllegalStateException.class)
 	public void getRankPrize_exceptionNotPreparedState() {
 		// given
-		Win win = new Win(0, Arrays.asList(1, 2, 3, 4, 5, 6, 7), 10000);
+		Win win = new Win(0);
 
 		// when
 		win.getRankPrize(1);
