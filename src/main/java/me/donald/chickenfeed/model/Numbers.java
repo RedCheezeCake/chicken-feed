@@ -7,6 +7,8 @@ public class Numbers {
 
 	private Integer[] numbers;
 
+	protected Numbers() {};
+
 	public Numbers(Integer[] numbers) {
 		this.numbers = numbers;
 	}
