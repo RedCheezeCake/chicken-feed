@@ -9,6 +9,8 @@ import me.donald.chickenfeed.service.domain.RoundService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -31,6 +33,8 @@ public class TicketService {
 		ticket.issueTicket();
 		ticketRepository.save(ticket);
 
+		log.info("Ticket ['{}'] issued // round : '{}', numbers : '{}', type : '{}'",
+				ticket.getTicketNo(), ticket.getRound(), Arrays.toString(ticket.getTicketNumbers()), ticket.getType());
 		return new Numbers(ticket.getTicketNumbers());
 	}
 }

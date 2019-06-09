@@ -7,7 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -144,7 +147,6 @@ public class Ticket {
 		fillRandomBalls(lastRandomBalls, beforeIdx + 1);
 
 		this.issueTime = LocalDateTime.now();
-		log.info("Ticket issued // round : '{}', numbers : '{}'", this.round, Arrays.toString(getTicketNumbers()));
 	}
 
 	/**
