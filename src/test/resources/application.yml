@@ -11,3 +11,15 @@ spring:
     password: password
   flyway:
     enabled: false
+
+ticket:
+  stream:
+    size:
+      init: 10
+      maximum: 10
+
+logging:
+  level:
+    me:
+      donald:
+        chickenfeed: debug
